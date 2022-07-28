@@ -10,6 +10,7 @@ import SwiftUI
 struct ListRowView: View {
     @State private var showingAddModal = false
     @EnvironmentObject var listViewModel: ListViewModel
+    @Environment(\.openURL) var openURL
     let item: ItemModel
     var body: some View {
         HStack {
@@ -17,7 +18,7 @@ struct ListRowView: View {
                 Text(item.title)
                     .font(.headline)
                 Button(action: {
-                   //
+                    openURL(URL(string: item.link)!)
                 }, label: {
                     Text("Open Link")
                         .foregroundColor(.white)
@@ -33,7 +34,7 @@ struct ListRowView: View {
                 .foregroundColor(item.isDone ? Color(#colorLiteral(red: 0.3671092689, green: 0.7148341537, blue: 0.8327456117, alpha: 1)) : Color(#colorLiteral(red: 0.6000000834, green: 0.6000000834, blue: 0.6000000834, alpha: 1)))
                 .onTapGesture {
                     withAnimation(.linear) {
-                        listViewModel.updateItem(item: item)
+                        listViewModel.updateStatus(item: item)
                     }
                 }
         }
@@ -45,7 +46,7 @@ struct ListRowView: View {
             listViewModel.isEdit.toggle()
         }
         .sheet(isPresented: $showingAddModal) {
-            AddView()
+            AddView(item: item)
         }
     }
 }

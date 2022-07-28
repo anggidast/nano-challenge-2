@@ -24,13 +24,6 @@ class ListViewModel: ObservableObject {
     }
     
     func getItems() {
-//        let newItems = [
-//            ItemModel(id: 1, title: "First item", link: "https://link1", isDone: true),
-//            ItemModel(id: 2, title: "Second item", link: "https://link2", isDone: false),
-//            ItemModel(id: 3, title: "Third", link: "https://link3", isDone: false)
-//        ]
-//        items.append(contentsOf: newItems)
-//        items = []
         let getUrl = URL(string: "\(url)/todos")
         guard getUrl != nil else { return }
         var request = URLRequest(url: getUrl!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30)
@@ -49,32 +42,35 @@ class ListViewModel: ObservableObject {
                         }
                     }
                 }
-//                    if let dictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? [String:Any] {
-//                        let data = dictionary["data"] as! [DataModel]
-//                        print(data)
-//                        for item in data {
-//                            let dataItem = ItemModel(id: item.id, title: item.title, link: item.description, isDone: item.status == "done" ? true : false)
-//                            self.items.append(dataItem)
-//                        }
-//                    }
-//                    let data = dictionary?["data"] as! [DataModel]
-//                    print(dictionary1.data[0].title)
-//                    for item in data as! [DataModel] {
-//                        print(item.title)
-//                    }
             }
         })
         dataTask.resume()
     }
     
-    func deleteItem(indexSet: IndexSet) {
-        items.remove(atOffsets: indexSet)
+    func deleteItem(id: Int) {
+        if let index = items.firstIndex(where: { $0.id == id }) {
+            
+            let getUrl = URL(string: "\(url)/todos/\(id)")
+            guard getUrl != nil else { return }
+            var request = URLRequest(url: getUrl!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30)
+            request.allHTTPHeaderFields = headers
+            request.httpMethod = "DELETE"
+            
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
+                if error == nil && data != nil {
+                    if (try? JSONDecoder().decode(PostResponse.self, from: data!)) != nil {
+                        DispatchQueue.main.async {
+                            self.items.remove(at: index)
+                        }
+                    }
+                }
+            })
+            dataTask.resume()
+        }
     }
     
     func addItem(title: String, link: String) {
-//        let newItem = ItemModel(id: items.count + 1, title: title, link: link, isDone: false)
-//        items.append(newItem)
-        
         let getUrl = URL(string: "\(url)/todos")
         guard getUrl != nil else { return }
         var request = URLRequest(url: getUrl!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30)
@@ -108,9 +104,8 @@ class ListViewModel: ObservableObject {
         dataTask.resume()
     }
     
-    func updateItem(item: ItemModel) {
+    func updateStatus(item: ItemModel) {
         if let index = items.firstIndex(where: { $0.id == item.id }) {
-//            items[index] = item.updateCompletion()
             
             let getUrl = URL(string: "\(url)/todos/\(item.id)")
             guard getUrl != nil else { return }
@@ -143,5 +138,42 @@ class ListViewModel: ObservableObject {
         }
     }
     
+    func updateItem(item: ItemModel) {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            
+            let getUrl = URL(string: "\(url)/todos/\(item.id)")
+            guard getUrl != nil else { return }
+            var request = URLRequest(url: getUrl!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30)
+            request.allHTTPHeaderFields = headers
+            let jsonBody = [
+                "title": item.title,
+                "description": item.link,
+                "status": item.isDone ? "done" : "undone",
+                "due_date": "2023-01-01"
+            ] as [String:Any]
+            do {
+                let requestBody = try JSONSerialization.data(withJSONObject: jsonBody, options: .fragmentsAllowed)
+                request.httpBody = requestBody
+            } catch {
+                return
+            }
+            request.httpMethod = "PUT"
+            
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
+                if error == nil && data != nil {
+                    if let response = try? JSONDecoder().decode(PostResponse.self, from: data!) {
+                        print(response)
+                        let item = response.data
+                        DispatchQueue.main.async {
+                            let updatedItem = ItemModel(id: item.id, title: item.title, link: item.description, isDone: item.status == "done" ? true : false)
+                            self.items[index] = updatedItem
+                        }
+                    }
+                }
+            })
+            dataTask.resume()
+        }
+    }
     
 }
