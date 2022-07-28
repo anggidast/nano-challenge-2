@@ -8,17 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		43F5F9E8288E3E8B00F9C8FC /* NanoChallenge2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5F9E7288E3E8B00F9C8FC /* NanoChallenge2App.swift */; };
-		43F5F9EA288E3E8B00F9C8FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5F9E9288E3E8B00F9C8FC /* ContentView.swift */; };
 		43F5F9EC288E3E8E00F9C8FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43F5F9EB288E3E8E00F9C8FC /* Assets.xcassets */; };
 		43F5F9EF288E3E8E00F9C8FC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43F5F9EE288E3E8E00F9C8FC /* Preview Assets.xcassets */; };
+		43F5F9F7288E456800F9C8FC /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5F9F6288E456800F9C8FC /* ListView.swift */; };
+		43F5F9F9288E46A200F9C8FC /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5F9F8288E46A200F9C8FC /* ListRowView.swift */; };
+		43F5F9FB288E4EE400F9C8FC /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5F9FA288E4EE400F9C8FC /* AddView.swift */; };
+		43F5F9FE288FAE3B00F9C8FC /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5F9FD288FAE3B00F9C8FC /* ItemModel.swift */; };
+		43F5FA012890C6AF00F9C8FC /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5FA002890C6AF00F9C8FC /* ListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		43F5F9E4288E3E8B00F9C8FC /* NanoChallenge2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NanoChallenge2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F5F9E7288E3E8B00F9C8FC /* NanoChallenge2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NanoChallenge2App.swift; sourceTree = "<group>"; };
-		43F5F9E9288E3E8B00F9C8FC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		43F5F9EB288E3E8E00F9C8FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43F5F9EE288E3E8E00F9C8FC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		43F5F9F6288E456800F9C8FC /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		43F5F9F8288E46A200F9C8FC /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
+		43F5F9FA288E4EE400F9C8FC /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		43F5F9FD288FAE3B00F9C8FC /* ItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
+		43F5FA002890C6AF00F9C8FC /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +60,9 @@
 			isa = PBXGroup;
 			children = (
 				43F5F9E7288E3E8B00F9C8FC /* NanoChallenge2App.swift */,
-				43F5F9E9288E3E8B00F9C8FC /* ContentView.swift */,
+				43F5F9FF2890C68900F9C8FC /* ViewModels */,
+				43F5F9FC288FAE1800F9C8FC /* Models */,
+				43F5F9F5288E454E00F9C8FC /* Views */,
 				43F5F9EB288E3E8E00F9C8FC /* Assets.xcassets */,
 				43F5F9ED288E3E8E00F9C8FC /* Preview Content */,
 			);
@@ -65,6 +75,32 @@
 				43F5F9EE288E3E8E00F9C8FC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		43F5F9F5288E454E00F9C8FC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				43F5F9F6288E456800F9C8FC /* ListView.swift */,
+				43F5F9FA288E4EE400F9C8FC /* AddView.swift */,
+				43F5F9F8288E46A200F9C8FC /* ListRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		43F5F9FC288FAE1800F9C8FC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				43F5F9FD288FAE3B00F9C8FC /* ItemModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		43F5F9FF2890C68900F9C8FC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				43F5FA002890C6AF00F9C8FC /* ListViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +173,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43F5F9EA288E3E8B00F9C8FC /* ContentView.swift in Sources */,
+				43F5F9FE288FAE3B00F9C8FC /* ItemModel.swift in Sources */,
+				43F5F9FB288E4EE400F9C8FC /* AddView.swift in Sources */,
+				43F5FA012890C6AF00F9C8FC /* ListViewModel.swift in Sources */,
 				43F5F9E8288E3E8B00F9C8FC /* NanoChallenge2App.swift in Sources */,
+				43F5F9F7288E456800F9C8FC /* ListView.swift in Sources */,
+				43F5F9F9288E46A200F9C8FC /* ListRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
